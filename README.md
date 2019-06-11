@@ -12,9 +12,9 @@ Example of protein similarity screening command line using diamond
 
 Note: diamond is reported to be faster than blastP
 
-> diamond blastp -d ~/diamondDB/nr -q query.fasta -o blastp_out.bls \
-> --outfmt 6 qseqid sseqid pident nident length mismatch gapopen gaps \
-> qstart qend qlen qframe sstart send slen evalue bitscore qcovhsp sallseqid
+    diamond blastp -d ~/diamondDB/nr -q query.fasta -o blastp_out.bls \
+    --outfmt 6 qseqid sseqid pident nident length mismatch gapopen gaps \
+    qstart qend qlen qframe sstart send slen evalue bitscore qcovhsp sallseqid
 
 ## Running BlastTools
 BlastTools can be used to summarise the output file from the above searches. 
