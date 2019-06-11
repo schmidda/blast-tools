@@ -1,0 +1,4 @@
+{
+    "blastn": { "qseqid":0, "sacc": 2, "sstart":10, "send":11,"stitle":17,"pident":4,"sstrand":13,"slen":12},
+    "blastp": { "qseqid":1, "sacc": 0, "sstart":12, "send":13,"stitle":19,"pident":2,"slen":14}
+}
