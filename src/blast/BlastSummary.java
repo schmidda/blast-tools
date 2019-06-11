@@ -36,7 +36,7 @@ public class BlastSummary extends Processor {
     static String[] ncols ={"sacc", "sstart", "send","stitle","pident","sstrand","slen"};
     static String[] pcols ={"sacc", "sstart", "send","stitle","pident","slen"};
     static String configPath = "/blasttools/config.json";
-    static String outputHeading = "sacc\tstitle\tnaccs\tlength\tslen\tcov\tav-pident\tqseqids\n";
+    static String outputHeading = "sacc\tnaccs\tlength\tslen\tcov\tav-pident\tstitle\tqseqids\n";
     /** map to store results */
     HashMap<String,Sacc> map;
     /**

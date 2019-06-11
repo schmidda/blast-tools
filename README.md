@@ -38,3 +38,8 @@ Change them to whatever you want and then update the config file back in
 BlastTools.jar file:
     jar uf BlastTools.jar blasttools/config.json
 
+## Building
+A NetBeans project is provided for loading the source files. Once built the 
+script build-jar.sh should be run to rebuild the BlastTools.jar file in the 
+top-level directory. This file contains both blasttools and json-simple which is 
+a dependency.
