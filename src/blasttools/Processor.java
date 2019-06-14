@@ -36,6 +36,7 @@ public abstract class Processor {
      * Factory method to build processors anonymously
      * @param name name of the processor
      * @return the built processor
+     * @throws Exception if specified processor does not exist
      */
     static public Processor getProcessor( String name ) throws Exception {
         if ( name.equals("blastn") )
@@ -45,6 +46,11 @@ public abstract class Processor {
         else
             throw new Exception("Unknown processor "+name);
     }
+    /**
+     * Is the string an integer?
+     * @param value the string value
+     * @return true if it was an int
+     */
     protected boolean isInt( String value ) {
         try {
             if ( value.length() > 0 ) {
@@ -59,9 +65,9 @@ public abstract class Processor {
         }
     }
     /**
-     * Is the string given a suitable double number
+     * Is the string given a suitable double number?
      * @param value the value of the double
-     * @return 
+     * @return true if it was a double else false
      */
     protected boolean isDouble( String value ) {
         try {
@@ -76,6 +82,11 @@ public abstract class Processor {
             return false;
         }
     }
+    /**
+     * Compute the file name with its suffix removed
+     * @param fileName the raw filename
+     * @return the truncated file name
+     */
     protected String shortFileName( String fileName ) {
         if ( fileName.lastIndexOf(".")!= -1 )
             return fileName.substring(0,fileName.lastIndexOf(".") );
@@ -85,6 +96,7 @@ public abstract class Processor {
     /**
      * 
      * @param key the master key of the processor's config
+     * @param path the path to the config resource within the jar
      * @param required an array of keys required in the sub-section of config
      * @return a JSONObject containing the checked config
      */
@@ -116,6 +128,7 @@ public abstract class Processor {
      * @param key the config key
      * @param jObj the config object
      * @return the integer value
+     * @throws Exception if key was not found in the config file
      */
     protected int intVal( String key, JSONObject jObj ) throws Exception {
         try {

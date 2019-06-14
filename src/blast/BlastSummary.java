@@ -27,20 +27,27 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- *
+ * Read and write summary as a CSV file (tab-delimited)
  * @author schmidda
  */
 public class BlastSummary extends Processor {
-    String type;// N = nucleotide, P=protein
+    /** N = nucleotide, P=protein */
+    public String type;
+    /** the key to the config for this processor */
     String configMaster;
+    /** the names of the columns in the CSV file for blastn and their order */
     static String[] ncols ={"sacc", "sstart", "send","stitle","pident","sstrand","slen"};
+    /** the names of the columns in the CSV file for blastp and their order */
     static String[] pcols ={"sacc", "sstart", "send","stitle","pident","slen"};
+    /** the path to the config file inside the .jar */
     static String configPath = "/blasttools/config.json";
+    /** the order of the output heading columns */
     static String outputHeading = "sacc\tnaccs\tlength\tslen\tcov\tav-pident\tstitle\tqseqids\n";
     /** map to store results */
     HashMap<String,Sacc> map;
     /**
      * Create a new BlastN processor
+     * @param type either N (blastn) or P (blastp)
      */
     public BlastSummary(String type) {
         this.type = type;
@@ -62,7 +69,7 @@ public class BlastSummary extends Processor {
     /**
      * Read in the source file and build a map of its contents
      * @param src the source file, existing
-     * @throws Exception 
+     * @throws Exception on file read error
      */
     protected void read( File src ) throws Exception {
         BufferedReader r = new BufferedReader(new FileReader(src));
@@ -113,12 +120,20 @@ public class BlastSummary extends Processor {
     /**
      * Write out the input data in its new format
      * @param srcName the original src file name
-     * @throws Exception 
+     * @throws Exception on file write error
      */
     protected void write( String srcName ) throws Exception {
         Set<String> keys = map.keySet();
         Iterator<String> iter = keys.iterator();
+        String prefix = "";
+        if ( srcName.indexOf("/") != -1 ) {
+            int index = srcName.lastIndexOf("/");
+            prefix = srcName.substring(0,index);
+            srcName = srcName.substring(index+1);
+        }
         String newFileName = "summary_"+shortFileName(srcName)+".txt";
+        if ( prefix.length()>0 )
+            newFileName = prefix+"/"+newFileName;
         File dest = new File(newFileName);
         if ( dest.exists() && !dest.delete() )
             throw new Exception("Failed to create "+newFileName);

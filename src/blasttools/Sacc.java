@@ -18,18 +18,33 @@ package blasttools;
 import java.util.ArrayList;
 import java.text.DecimalFormat;
 /**
- * Represent an accession number
+ * Represent an accession number and maintain a list of its matched ranges
  * @author schmidda
  */
 public class Sacc {
+    /** the matches expressed as ranges */
     ArrayList<Range> ranges;
+    /** the accession title */
     String title;
+    /* its overall length */
     int sLen;
+    /**
+     * Create an accession number
+     * @param title its title
+     * @param sLen its length returned by blastn or blastp
+     */
     public Sacc( String title, int sLen )
     {
         this.title = title;
         this.sLen = sLen;
     }
+    /**
+     * Add another range to this Sacc
+     * @param start the start of the matched range
+     * @param end its end
+     * @param qSeqId the query sequence id
+     * @param pIdent the percentage identity over the match
+     */
     public void addRange( int start, int end, String qSeqId, double pIdent )
     {
         if ( ranges == null ) {
@@ -45,7 +60,7 @@ public class Sacc {
     /**
      * Not really needed: Do an insertion sort based on start range
      */
-    void sortRanges() {
+    private void sortRanges() {
         for(int i = 1; i < ranges.size(); i++){
             Range r = ranges.get(i);
             int j = i - 1;
@@ -56,7 +71,11 @@ public class Sacc {
             ranges.set(j + 1, r);
         }
     }
-    String sumRanges() {
+    /**
+     * Compute the row of the sacc for output to csv format
+     * @return 
+     */
+    private String sumRanges() {
         int length = 0;
         StringBuilder sb = new StringBuilder();
         sortRanges();
@@ -101,6 +120,16 @@ public class Sacc {
         }
         return sb.toString();        
     }
+    public int numRanges() {
+        if ( ranges == null )
+            return 0;
+        else
+            return ranges.size();
+    }
+    /**
+     * Express the Sacc as a string for output
+     * @return a string
+     */
     public String toString()
     {
         StringBuilder sb = new StringBuilder();

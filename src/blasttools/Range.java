@@ -17,21 +17,33 @@
 package blasttools;
 
 /**
- *
+ * Represent a matched range in a sequence
  * @author schmidda
  */
 public class Range {
     int start,end;
     String qSeqId;
     double pIdent;
-    Range( int start, int end, String qSeqId, double pIdent )
+    /**
+     * Create a new Range.
+     * @param start the start offset in the sequence
+     * @param end the end-offset
+     * @param qSeqId the sequence id in which this range was found
+     * @param pIdent the percent of identity within the match
+     */
+    public Range( int start, int end, String qSeqId, double pIdent )
     {
         this.start = start;
         this.end = end;
         this.qSeqId = qSeqId;
         this.pIdent = pIdent;
     }
-    int getOverlap( Range other )
+    /**
+     * Get the number of characters of overlap between two ranges
+     * @param other the other range
+     * @return the number of characters overlapping
+     */
+    public int getOverlap( Range other )
     {
         if ( start > other.end || other.start > end )
             return 0;
@@ -45,14 +57,22 @@ public class Range {
             return (other.end-other.start)+1;
         else return 0;
     }
-    int getLength()
+    /**
+     * Get the length of this range
+     * @return its absolute length in characters
+     */
+    public int getLength()
     {
         if ( end-start < 0 )
-            System.out.println("wrong!");
-        return end-start;
+            return 0;
+        return (end-start)+1;
     }
-    double getRelPIdent()
+    /**
+     * Compute the percent identity normalised over its length
+     * @return a percent value
+     */
+    public double getRelPIdent()
     {
-        return (end-start)*pIdent;
+        return ((end-start)+1)*pIdent;
     }
 }

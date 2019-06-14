@@ -17,3 +17,5 @@ jar ufe BlastTools.jar blasttools.BlastTools blasttools/BlastTools.class
 cp BlastTools.jar ..
 cd ..
 rm -rf blasttools
+# build javadocs
+javadoc -classpath lib/json-simple-1.1.1.jar -exclude org.json.simple -sourcepath src -d docs -subpackages blasttools blast

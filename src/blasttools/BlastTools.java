@@ -21,8 +21,8 @@ import java.io.File;
  * @author schmidda
  */
 public class BlastTools {
-    static Processor processor;
-    static File src;
+    public static Processor processor;
+    public static File src;
     /**
      * Read commandline arguments. Set src file and processor type
      * @param args the args passed into BlastTools
